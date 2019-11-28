@@ -18,10 +18,10 @@ public class LoginA
 	public static String URL = " http://63.249.226.106/apwpthemes";
 	public static String Email= "Andriowats23on@gmail.com";
 	public static String EmailNotVerified = "Andriowatson1@gmail.com";
-	public static String Password1 = "ruchi@ebrandz.com";
-	public static String Password = "22446688000";
-	public static String ValidEmail = "ruchi@ebrandz.com";
-	public static String ValidPassword = "2244668800";
+	public static String Password1 = "";
+	public static String Password = "";
+	public static String ValidEmail = "";
+	public static String ValidPassword = "";
 	public static String CSSColor = "#d50000";
 	
 	@BeforeTest
