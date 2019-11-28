@@ -1,0 +1,89 @@
+package Login;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+public class LoginJAR
+{
+
+	public static WebElement wbl;
+	
+	public static String wbl1="";
+	
+	public static WebElement LoginPage (WebDriver wb)
+	{
+		wbl=wb.findElement(By.xpath("//li[contains(text(),'Login')]"));
+		return wbl;
+	}
+	
+	public static WebElement EmailID (WebDriver wb)
+	{
+		wbl=wb.findElement(By.xpath("//input[@formcontrolname='emailId']"));
+		return wbl;
+	}
+	
+	public static WebElement Password (WebDriver wb)
+	{
+		wbl=wb.findElement(By.xpath("//input[@formcontrolname='password']"));
+		return wbl;
+	}
+	
+	public static WebElement LoginButton (WebDriver wb)
+	{
+		wbl=wb.findElement(By.xpath("//span[contains(text(),'Sign in to your account')]"));
+		return wbl;
+	}
+	
+	public static String InvalidMessage (WebDriver wb)
+	{
+		wbl1=wb.findElement(By.xpath("//span[contains(text(),'Invalid Login Credentials.')]")).getText();
+		return wbl1;
+	}
+	
+	public static WebElement InvalidMessage1 (WebDriver wb)
+	{
+		wbl=wb.findElement(By.xpath("//span[contains(text(),'Invalid Login Credentials.')]"));
+		return wbl;
+	}
+	
+	public static String CSSEMail (WebDriver wb)
+	{
+		wbl1=wb.findElement(By.xpath("//input[@formcontrolname='emailId']")).getCssValue("color");
+		return wbl1;
+	}
+	
+	public static String CSSEPassword (WebDriver wb)
+	{
+		wbl1=wb.findElement(By.xpath("//input[@formcontrolname='emailId']")).getCssValue("color");
+		return wbl1;
+	}
+	
+	public static String EmailNotVerified (WebDriver wb)
+	{
+		wbl1=wb.findElement(By.xpath("//span[contains(text(),'Email Verification not done.')]")).getText();
+		return wbl1;
+	}
+	
+	public static WebElement EmailNotVerified1 (WebDriver wb)
+	{
+		wbl=wb.findElement(By.xpath("//span[contains(text(),'Email Verification not done.')]"));
+		return wbl;
+	}
+//Email Verification not done.  mat-simple-snackbar ng-star-inserted
+	//mat-simple-snackbar ng-star-inserted
+	public static String FinalMessage (WebDriver wb)
+	{
+		wbl1=wb.findElement(By.xpath("//simple-snack-bar[@class='mat-simple-snackbar ng-star-inserted']")).getText();
+		return wbl1;
+	}
+	
+	public static WebElement FinalMessage1 (WebDriver wb)
+	{
+		wbl=wb.findElement(By.xpath("//simple-snack-bar[@class='mat-simple-snackbar ng-star-inserted']"));
+		return wbl;
+	}
+//simple-snack-bar
+	//simple-snack-bar[@class='mat-simple-snackbar ng-star-inserted']
+	//mat-simple-snackbar ng-star-inserted
+}
