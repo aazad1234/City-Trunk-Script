@@ -1,0 +1,126 @@
+package SignUp;
+
+import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+
+public class Signup 
+{
+	public static WebDriver SignUPDriver;
+	public static String URL = " http://63.249.226.106/apwpthemes";
+	public String Password3;
+	
+	@BeforeTest
+	 public void Method()
+	 {
+		System.setProperty("webdriver.gecko.driver", "D:\\Aazad\\Selenium\\geckodriver\\geckodriver.exe");
+		SignUPDriver = new FirefoxDriver();
+		SignUPDriver.manage().window().maximize();
+	 }
+	
+	@Test
+  public void SignUP()
+	{
+		SignUPDriver.get(URL);
+		
+		SignUPDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		
+		SignUpjar.SignUpPage(SignUPDriver).click();
+		System.out.println();
+		System.out.println("Please Enter First Name: ");
+		Scanner FName = new Scanner(System.in);
+		String FName1 = FName.next();
+		SignUpjar.FirstName(SignUPDriver).sendKeys(FName1);
+		
+		
+		System.out.println();
+		System.out.println("Please Enter Last Name: ");
+		Scanner LName = new Scanner(System.in);
+		String LName1 = LName.next();
+		SignUpjar.LastName(SignUPDriver).sendKeys(LName1);
+		
+		System.out.println();
+		System.out.println("Please Enter Email");
+		Scanner EMail = new Scanner(System.in);
+		String EMail1 = EMail.next();
+		SignUpjar.Email(SignUPDriver).sendKeys(EMail1);
+		
+		String Regex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+		 
+		 if (EMail1.matches(Regex) )
+		 {
+			 System.out.println("You E-Mail ID is valid, You can proceed with provided Credential"); 
+		 }
+		 else
+		 {
+			SignUpjar.Password(SignUPDriver).click();
+			String Message = SignUpjar.EmailMessage1(SignUPDriver);
+			System.err.println(Message);
+			SignUpjar.Email(SignUPDriver).clear();
+			System.out.println("Please Re-enter Email");
+			Scanner EMail2 = new Scanner(System.in);
+			String EMail3 = EMail2.next();
+			SignUpjar.Email(SignUPDriver).sendKeys(EMail3);
+		 }
+		
+		System.out.println();
+		System.out.println("Please Enter Password");
+		Scanner Password = new Scanner(System.in);
+		String Password1 = Password.next();
+		SignUpjar.Password(SignUPDriver).sendKeys(Password1);
+		
+		if (Password1.length() >= 8)
+		 {
+			 //String Message = SignUpjar.EmailMessage(SignUPDriver);
+			 System.out.println("You Password Strength is good, You can proceed with provided Credential"); 
+		 }
+		 else
+		 {
+			SignUpjar.ConfirmPassword(SignUPDriver).click();
+			String Message = SignUpjar.PasswordMessageNew(SignUPDriver);
+			System.err.println(Message);
+			
+			SignUpjar.Password(SignUPDriver).clear();
+			
+			System.out.println("Please Re-enter Password:");
+			Scanner Password2 = new Scanner(System.in);
+			Password1 = Password2.next();
+			SignUpjar.Password(SignUPDriver).sendKeys(Password1);
+		 }
+		
+		System.out.println();
+		System.out.println("Please Enter Confirm Password");
+		System.err.println("Kindly Note This: Confirm Password should be same as Password:");
+		System.out.println();
+		Scanner CPassword = new Scanner(System.in);
+		String CPassword1 = CPassword.next();
+		SignUpjar.ConfirmPassword(SignUPDriver).sendKeys(CPassword1);
+		
+		if(CPassword1.contentEquals(Password1))
+		{			
+			SignUpjar.SignUPSubmit(SignUPDriver).click();
+			SignUPDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+			System.err.println(SignUpjar.MessageText(SignUPDriver));
+		}
+		else
+		{
+			SignUpjar.SignUPSubmit(SignUPDriver).click();
+			System.err.println(SignUpjar.PasswordMessageNew1(SignUPDriver));
+			System.out.println("Please Re-Enter Confirm Password");
+			
+			SignUpjar.ConfirmPassword(SignUPDriver).clear();
+			Scanner CPassword2 = new Scanner(System.in);
+			String CPassword3 = CPassword2.next();
+			SignUpjar.ConfirmPassword(SignUPDriver).sendKeys(CPassword3);
+			SignUpjar.SignUPSubmit(SignUPDriver).click();
+			SignUPDriver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+			System.err.println(SignUpjar.MessageText(SignUPDriver));
+			System.err.println(SignUpjar.MessageText(SignUPDriver));
+		}
+	}
+}
