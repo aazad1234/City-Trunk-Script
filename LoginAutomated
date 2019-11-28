@@ -1,0 +1,189 @@
+package Login;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.Color;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class LoginA
+{
+	public static WebDriver LoginDriver;
+	public static String URL = " http://63.249.226.106/apwpthemes";
+	public static String Email= "Andriowats23on@gmail.com";
+	public static String EmailNotVerified = "Andriowatson1@gmail.com";
+	public static String Password1 = "ruchi@ebrandz.com";
+	public static String Password = "22446688000";
+	public static String ValidEmail = "ruchi@ebrandz.com";
+	public static String ValidPassword = "2244668800";
+	public static String CSSColor = "#d50000";
+	
+	@BeforeTest
+	public void BeforeTest ()
+	{
+		System.setProperty("webdriver.gecko.driver", "D:\\Aazad\\Selenium\\geckodriver\\geckodriver.exe");
+		LoginDriver = new FirefoxDriver();
+		LoginDriver.manage().window().maximize();
+	}
+	
+  @Test (priority=0)
+  public void BlankField() 
+  
+  {
+	  LoginDriver.get(URL);
+	  LoginDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	  LoginJAR.LoginPage(LoginDriver).click();
+		
+	  System.out.println("");
+	  System.out.println("Script Number 1: BlankField");
+	  LoginJAR.EmailID(LoginDriver).click();
+	  LoginJAR.EmailID(LoginDriver).clear();
+	  
+	  LoginJAR.Password(LoginDriver).click();
+	  String Email= LoginJAR.EmailID(LoginDriver).getCssValue("caret-color");
+	  //System.out.println(Firtnamecolor);
+	  String Emailhex = Color.fromString(Email).asHex();
+	  System.out.println("Validation Color code: "+Emailhex);
+	  if(Emailhex.contentEquals(CSSColor))
+	  {
+		  System.out.println("Please Enter Email-ID");
+	  }
+	  else
+	  {
+		  System.out.println("");
+		  System.err.println("E-Mail Field is failed to Indicate Red Color");
+		  System.out.println("");
+	  }	
+	  
+	  LoginJAR.Password(LoginDriver).click();
+	  LoginJAR.EmailID(LoginDriver).clear();
+	  
+	  LoginJAR.LoginButton(LoginDriver).click();
+	  String Passwordcolor= LoginJAR.Password(LoginDriver).getCssValue("caret-color");
+	  //System.out.println(Firtnamecolor);
+	  String Passwordhex = Color.fromString(Passwordcolor).asHex();
+	  System.out.println("Validation Color code: "+Passwordhex);
+	  if(Passwordhex.contentEquals(CSSColor))
+	  {
+		  System.out.println("Please Enter Password");
+	  }
+	  else
+	  {
+		  System.out.println("");
+		  System.err.println("Password Field is failed to Indicate Red Color");
+		  System.out.println("");
+	  }	  
+  }
+  
+  @Test(priority=1)
+ public void EmailNotVerfied() 
+  {
+	  ((JavascriptExecutor)LoginDriver).executeScript("window.open('about:blank', '-blank')");
+	    // To switch to the new tab
+	  ArrayList<String> tabs = new ArrayList<String>(LoginDriver.getWindowHandles());
+	  LoginDriver.switchTo().window(tabs.get(1));
+	  
+	  LoginDriver.get(URL);
+	  LoginDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	  LoginJAR.LoginPage(LoginDriver).click();
+		
+	  System.out.println("");
+	  System.out.println("Script Number 2: EmailNotVerified");
+	  System.out.println("");
+	  
+	  LoginJAR.EmailID(LoginDriver).sendKeys(EmailNotVerified);
+	  LoginJAR.Password(LoginDriver).sendKeys(Password1);
+	  LoginJAR.LoginButton(LoginDriver).click();
+	  
+	  if(LoginJAR.FinalMessage1(LoginDriver).isDisplayed())
+	  {
+		  String Message = LoginJAR.FinalMessage(LoginDriver);
+		  System.err.println(Message);
+		  System.out.println("");
+	  }
+	  else
+	  {
+		  System.out.println("Failed to show the message of E-Mail not Verfied");
+	  }
+  }
+	
+  @Test (priority=2)
+  public void InvalidCredential()
+  {
+	  ((JavascriptExecutor)LoginDriver).executeScript("window.open('about:blank', '+blank')");
+	    // To switch to the new tab
+	  ArrayList<String> tabs = new ArrayList<String>(LoginDriver.getWindowHandles());
+	  LoginDriver.switchTo().window(tabs.get(2));
+	  
+	  LoginDriver.get(URL);
+	  LoginDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	  LoginJAR.LoginPage(LoginDriver).click();
+		
+	  System.out.println("");
+	  System.out.println("Script Number 3: InvalidCredential");
+	  System.out.println("");
+	  
+	  LoginJAR.EmailID(LoginDriver).sendKeys(Email);
+	  LoginJAR.Password(LoginDriver).sendKeys(Password);
+	  LoginJAR.LoginButton(LoginDriver).click();
+	  
+	  if(LoginJAR.FinalMessage1(LoginDriver).isDisplayed())
+	  {
+		  System.out.println("");
+		  System.err.println(LoginJAR.FinalMessage(LoginDriver));
+		  System.out.println("");
+	  }
+	  else
+	  {
+		  System.out.println();
+		  System.err.println("Failed to show Message");
+	  }
+  }
+  
+
+  @Test (priority=3)
+  public void ValidCredential()
+  {
+	  ((JavascriptExecutor)LoginDriver).executeScript("window.open('about:blank', '+blank')");
+	    // To switch to the new tab
+	  ArrayList<String> tabs = new ArrayList<String>(LoginDriver.getWindowHandles());
+	  LoginDriver.switchTo().window(tabs.get(1));
+	  
+	  LoginDriver.get(URL);
+	  LoginDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	  LoginJAR.LoginPage(LoginDriver).click();
+		
+	  System.out.println("");
+	  System.out.println("Script Number 4: ValidCredential");
+	  System.out.println("");
+	  
+	  LoginJAR.EmailID(LoginDriver).sendKeys(ValidEmail);
+	  LoginJAR.Password(LoginDriver).sendKeys(ValidPassword);
+	  LoginJAR.LoginButton(LoginDriver).click();
+	  
+	  if(LoginJAR.FinalMessage1(LoginDriver).isDisplayed())
+	  {
+		  System.out.println("");
+		  System.err.println(LoginJAR.FinalMessage(LoginDriver));
+		  System.out.println("");
+	  }
+	  else
+	  {
+		  System.out.println();
+		  System.err.println("Failed to show Message");
+	  }
+  }
+  
+  @AfterTest
+  public void CloseBrowser() throws Exception
+  {
+	  Thread.sleep(5000);
+	  LoginDriver.quit();
+  }
+}
