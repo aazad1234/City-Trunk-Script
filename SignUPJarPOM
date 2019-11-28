@@ -1,0 +1,133 @@
+package SignUp;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+public class SignUpjar 
+{
+
+	public static WebElement wbl;
+	
+	public static String wbl1="";
+	
+	public static WebElement SignUpPage (WebDriver wb)
+	{
+		wbl=wb.findElement(By.xpath("//li[contains(text(),'Sign up')]"));
+		return wbl;
+	}
+	
+	public static WebElement FirstName (WebDriver wb)
+	{
+		wbl=wb.findElement(By.xpath("//input[@formcontrolname='firstName']"));
+		return wbl;
+	}
+	
+	public static WebElement LastName (WebDriver wb)
+	{
+		wbl=wb.findElement(By.xpath("//input[@formcontrolname='lastName']"));
+		return wbl;
+	}
+	
+	
+	public static WebElement Email (WebDriver wb)
+	{
+		wbl=wb.findElement(By.xpath("//input[@formcontrolname='emailId']"));
+		return wbl;
+	}
+
+	public static WebElement Password (WebDriver wb)
+	{
+		wbl=wb.findElement(By.xpath("//input[@formcontrolname='password']"));
+		return wbl;
+	}
+	
+	public static WebElement ConfirmPassword (WebDriver wb)
+	{
+		wbl=wb.findElement(By.xpath("//input[@formcontrolname='confirmPassword']"));
+		return wbl;
+	}
+	
+	public static WebElement SignUPSubmit (WebDriver wb)
+	{
+		wbl=wb.findElement(By.xpath("//span[contains(text(),'Set up your account')]"));
+		return wbl;
+	}
+	
+	public static String Message (WebDriver wb)
+	{
+		wbl1=wb.findElement(By.xpath("//span[contains(text(),'Registered successfully.')]")).getText();
+		return wbl1;
+	}
+	
+	public static String EmailMessage (WebDriver wb)
+	{
+		wbl1=wb.findElement(By.xpath("//mat-error[contains(text(),'Must be a valid Email ID')]")).getText(); //mat-error[@id='mat-error-10']
+		return wbl1;
+	}
+	
+	public static String EmailMessage1 (WebDriver wb)
+	{
+		wbl1=wb.findElement(By.xpath("//div[@class='ng-tns-c9-3 ng-trigger ng-trigger-transitionMessages ng-star-inserted']")).getText(); //mat-error[@id='mat-error-10']
+		return wbl1;
+	}
+	//ng-tns-c9-3 ng-trigger ng-trigger-transitionMessages ng-star-inserted
+//	public static String PasswordMessage (WebDriver wb)
+//	{
+//		wbl1=wb.findElement(By.xpath("//mat-error[contains(text(),'Must be at least 8 characters')]")).getText(); //mat-error[@id='mat-error-10']
+//		return wbl1;
+//	}
+	public static String PasswordMessage (WebDriver wb)
+	{
+		wbl1=wb.findElement(By.xpath("//mat-error[contains(text(),'Must be at least 8 characters')]")).getText(); //mat-error[@id='mat-error-10']
+		return wbl1;
+	}
+	
+	public static String PasswordMessageNew (WebDriver wb)
+	{
+		wbl1=wb.findElement(By.xpath("//div[@class='ng-tns-c9-4 ng-trigger ng-trigger-transitionMessages ng-star-inserted']")).getText();
+		return wbl1;
+	}
+	//ng-tns-c9-4 ng-trigger ng-trigger-transitionMessages ng-star-inserted
+	
+//	public static String PasswordMessage1 (WebDriver wb)
+//	{
+//		wbl1=wb.findElement(By.xpath("//mat-error[contains(text(),'Passwords must match')]")).getText(); //mat-error[@id='mat-error-10']
+//		return wbl1;
+	
+	public static String PasswordMessage1 (WebDriver wb)
+	{
+		wbl1=wb.findElement(By.xpath("//mat-error[contains(text(),'Passwords must match')]")).getText(); //mat-error[@id='mat-error-10']
+		return wbl1;
+	}
+	
+//	}
+//	
+	public static String PasswordMessageNew1 (WebDriver wb)
+	{
+		wbl1=wb.findElement(By.xpath("//div[@class='ng-tns-c9-5 ng-trigger ng-trigger-transitionMessages ng-star-inserted']")).getText();
+		return wbl1;
+	}
+	
+	public static String MessageText (WebDriver wb)
+	{
+		wbl1=wb.findElement(By.xpath("//simple-snack-bar[@class='mat-simple-snackbar ng-star-inserted']")).getText();
+		return wbl1;
+	}
+	
+	public static WebElement MessageElement (WebDriver wb)
+	{
+		wbl=wb.findElement(By.xpath("//simple-snack-bar[@class='mat-simple-snackbar ng-star-inserted']"));
+		return wbl;
+	}
+	
+	
+	
+	//Passwords must match
+
+	
+	
+	//Must be a valid Email ID
+	//span[contains(text(),'Registered successfully.')]
+	//div[@class='cdk-overlay-container']
+}
