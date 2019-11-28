@@ -1,0 +1,814 @@
+package SignUp;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.Color;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class SignUpA
+{
+	public static WebDriver SignUpDriver;
+	public static String URL = "http://63.249.226.106/apwpthemes/";
+	public static String CSSColor = "#d50000";
+	public static String Regex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+	public static String ValidEMail = "AndrioWatson@E3mailss.com";  //Password
+	public static String EmailValid = "AndrioWatson@Emailss.com";  //ValidEmail Class
+	@BeforeTest
+	public void BeforeTest ()
+	{
+		System.setProperty("webdriver.gecko.driver", "D:\\Aazad\\Selenium\\geckodriver\\geckodriver.exe");
+		SignUpDriver = new FirefoxDriver();
+		SignUpDriver.manage().window().maximize();
+	}
+ 
+	
+	@Test (priority=0)
+  public void RegistrationFieldsValidationMessage() 
+  {
+	  System.out.println("");                                                                                          
+	  System.out.println("Script Number 1: RegistrationFieldsValidationMessage"); 
+	  SignUpDriver.get(URL);
+	  SignUpDriver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+	  
+	  SignUpjar.SignUpPage(SignUpDriver).click();
+	  
+	  SignUpjar.FirstName(SignUpDriver).click();
+	  SignUpjar.FirstName(SignUpDriver).clear();
+	  
+	  SignUpjar.LastName(SignUpDriver).click();
+	  SignUpjar.LastName(SignUpDriver).clear();
+	  
+	  String Firtnamecolor= SignUpjar.FirstName(SignUpDriver).getCssValue("caret-color");
+	  //System.out.println(Firtnamecolor);
+	  String Firstnamehex = Color.fromString(Firtnamecolor).asHex();
+	  System.out.println("Validation Color code: "+Firstnamehex);
+	  if(Firstnamehex.contentEquals(CSSColor))
+	  {
+		  System.out.println("Please Enter First Name");
+	  }
+	  else
+	  {
+		  System.err.println("First name is failed to Indicate Red Color");
+	  }
+	  SignUpjar.Email(SignUpDriver).click();
+	  SignUpjar.Email(SignUpDriver).clear();
+	  
+	  String LastNamecolor= SignUpjar.LastName(SignUpDriver).getCssValue("caret-color");
+	  //System.out.println(LastNamecolor);
+	  String LastNamehex = Color.fromString(LastNamecolor).asHex();
+	  if(LastNamehex.contentEquals(CSSColor))
+	  {
+		  System.out.println("Please Enter Last Name");
+	  }
+	  else
+	  {
+		  System.err.println("Last name is failed to Indicate Red Color");
+	  }
+	  
+	  SignUpjar.Password(SignUpDriver).click();
+	  SignUpjar.Password(SignUpDriver).clear();
+	  
+	  String EMailcolor= SignUpjar.LastName(SignUpDriver).getCssValue("caret-color");
+	  //System.out.println(EMailcolor);
+	  String EMailhex = Color.fromString(EMailcolor).asHex();
+	  if(EMailhex.contentEquals(CSSColor))
+	  {
+		  System.out.println("Please Enter E-Mail Address");
+	  }
+	  else
+	  {
+		  System.err.println("E-Mail Address is failed to Indicate Red Color");
+	  }
+	  
+	  SignUpjar.ConfirmPassword(SignUpDriver).click();
+	  SignUpjar.ConfirmPassword(SignUpDriver).clear();
+	  
+	  String Passwordcolor= SignUpjar.LastName(SignUpDriver).getCssValue("caret-color");
+	  //System.out.println(Passwordcolor);
+	  String Passwordhex = Color.fromString(Passwordcolor).asHex();
+	  if(Passwordhex.contentEquals(CSSColor))
+	  {
+		  System.out.println("Please Enter Password");
+	  }
+	  else
+	  {
+		  System.err.println("Password is failed to Indicate Red Color");
+	  }
+	  
+	  SignUpjar.SignUPSubmit(SignUpDriver).click();
+	  	  
+	  String ConfirmPasswordcolor= SignUpjar.LastName(SignUpDriver).getCssValue("caret-color");
+	  //System.out.println(ConfirmPasswordcolor);
+	  String ConfirmPasswordhex = Color.fromString(ConfirmPasswordcolor).asHex();
+	  if(ConfirmPasswordhex.contentEquals(CSSColor))
+	  {
+		  System.out.println("Please Enter Confirm Password ");
+		  System.out.println("");
+	  }
+	  else
+	  {
+		  System.err.println("Confirm Password is failed to Indicate Red Color");
+		  System.out.println("");
+	  }
+  }
+  
+  @Test (priority=1)
+  public void EMailDomainwithDoubleDot() 
+  {
+	  System.out.println("");
+	  System.out.println("Script Number 2: EMailDomainwithDoubleDot"); 
+	  SignUpDriver.get(URL);
+	  SignUpjar.SignUpPage(SignUpDriver).click();
+	  
+	  SignUpjar.FirstName(SignUpDriver).sendKeys("Andrio");
+	  SignUpjar.LastName(SignUpDriver).sendKeys("Watson");
+	  String data = "Andrio@Email..com";
+	  SignUpjar.Email(SignUpDriver).sendKeys(data);
+	  SignUpjar.LastName(SignUpDriver).click();
+	  
+	  if(data.matches(Regex))
+	  {
+		  System.out.println("Provided E-Mail ID is Correct");
+		  System.out.println("");
+	  }
+	  else
+	  {
+		  System.err.println(SignUpjar.EmailMessage(SignUpDriver));
+		  System.out.println("");
+	  }
+  }
+  
+  @Test(priority=2)
+  public void EMailDomainWithDoubleAtTheRate()
+  {
+	  System.out.println("");
+	  System.out.println("Script Number 3: EMailDomainWithDoubleAtTheRate (@@)"); 
+	  SignUpDriver.get(URL);
+	  
+	  SignUpjar.SignUpPage(SignUpDriver).click();
+	  
+	  SignUpjar.FirstName(SignUpDriver).sendKeys("Andrio");
+	  SignUpjar.LastName(SignUpDriver).sendKeys("Watson");
+	  String data = "Andriowatson@@Gmail.com";
+	  SignUpjar.Email(SignUpDriver).sendKeys(data);
+	  SignUpjar.LastName(SignUpDriver).click();
+	  
+	  if(data.matches(Regex))
+	  {
+		 System.out.println("Provided Email ID is Correct");
+		 System.out.println("");
+	  }
+	  else
+	  {
+		  System.err.println(SignUpjar.EmailMessage(SignUpDriver));
+		  System.out.println("");
+	  } 
+  }
+  
+  @Test(priority=3)
+  public void EmailMissingAtTheRate()
+  {
+	  System.out.println("");
+	  System.out.println("Script Number 4: EmailMissingAtTheRate"); 
+	  SignUpDriver.get(URL);
+	  SignUpjar.SignUpPage(SignUpDriver).click();
+	  SignUpjar.FirstName(SignUpDriver).sendKeys("Andrio");
+	  SignUpjar.LastName(SignUpDriver).sendKeys("Watson");
+	  String data="AndriowatsonEmail.com";
+	  SignUpjar.Email(SignUpDriver).sendKeys(data);
+	  SignUpjar.LastName(SignUpDriver).click();
+	  if(data.matches(Regex))
+	  {
+		 System.out.println("Provided Email ID is Correct");
+		 System.out.println("");
+	  }
+	  else
+	  {
+		  System.err.println(SignUpjar.EmailMessage(SignUpDriver));
+		  System.out.println("");
+		  System.out.println("");
+	  }  
+	  
+  }
+  
+  @Test(priority=4)
+  public void EmailMissingUsername()
+  {
+	  System.out.println("");
+	  System.out.println("Script Number 5: EmailMissingUsername"); 
+	  SignUpDriver.get(URL);
+	  
+	  SignUpjar.SignUpPage(SignUpDriver).click();
+	  SignUpjar.FirstName(SignUpDriver).sendKeys("Andrio");
+	  SignUpjar.LastName(SignUpDriver).sendKeys("Watson");
+	  String data="@Domain.com";
+	  
+	  SignUpjar.Email(SignUpDriver).sendKeys(data);
+	  SignUpjar.LastName(SignUpDriver).click();
+	  
+	  if(data.matches(Regex))
+	  {
+		  System.out.println("Provided Email ID is Correct");
+		  System.out.println("");
+	  }
+	  
+	  else
+	  {
+		  System.err.println(SignUpjar.EmailMessage(SignUpDriver));
+		  System.out.println();
+	  }
+  }
+  
+  @Test (priority=5)
+  public void EMailLeadingDot()
+  {
+	  System.out.println("");
+	  System.out.println("Script Number 6: EMailLeadingDot"); 
+	  SignUpDriver.get(URL);
+	  SignUpjar.SignUpPage(SignUpDriver).click();
+	  SignUpjar.FirstName(SignUpDriver).sendKeys("Andrio");
+	  SignUpjar.LastName(SignUpDriver).sendKeys("Watson");
+	  String data=".Andriowatson@EMail.com";
+	  SignUpjar.Email(SignUpDriver).sendKeys(data);
+	  SignUpjar.LastName(SignUpDriver).click();
+	  
+	  if(data.matches(Regex))
+	  {
+		  System.out.println("Provided Email ID is Correct");
+	  }
+	  else
+	  {
+		  System.err.println(SignUpjar.EmailMessage(SignUpDriver));
+		  System.out.println("");
+	  }
+	  
+  }
+  
+  @Test(priority=6)
+  public void EMailTralingDot()
+  {
+	  System.out.println("");
+	  System.out.println("Script Number 7: EMailTralingDot"); 
+	  SignUpDriver.get(URL);
+	  SignUpjar.SignUpPage(SignUpDriver).click();
+	  SignUpjar.FirstName(SignUpDriver).sendKeys("Andrio");
+	  SignUpjar.LastName(SignUpDriver).sendKeys("Watson");
+	  String data="Andriowatson.@Email.com";
+	  SignUpjar.Email(SignUpDriver).sendKeys(data);
+	  SignUpjar.LastName(SignUpDriver).click();
+	  
+	  if(data.matches(Regex))
+	  {
+		  System.out.println("Provided Email ID is Correct");
+		  System.out.println("");
+	  }
+	  else
+	  {
+		System.err.println(SignUpjar.EmailMessage(SignUpDriver));
+		System.out.println("");
+	  }
+	   
+  }
+  
+  @Test(priority=7)
+  public void EmailMultipleDot()
+  {
+	  System.out.println("");
+	  System.out.println("Script Number 8: EmailMultipleDot"); 
+	  SignUpDriver.get(URL);
+	  SignUpjar.SignUpPage(SignUpDriver).click();
+	  SignUpjar.FirstName(SignUpDriver).sendKeys("Andrio");
+	  SignUpjar.LastName(SignUpDriver).sendKeys("Watson");
+	  String data = "Andrio..watson@EMail.com";
+	  SignUpjar.Email(SignUpDriver).sendKeys(data);
+	  SignUpjar.LastName(SignUpDriver).click();
+	  
+	  if(data.matches(Regex))
+	  {
+		  System.out.println("Provided Email ID is Correct");
+		  System.out.println("");
+	  }
+	  else
+	  {
+		System.err.println(SignUpjar.EmailMessage(SignUpDriver));
+		System.out.println("");
+	  }
+  }
+  
+  @Test(priority=8)
+  public void EmailMissingTopDomain()
+  {
+	  System.out.println("");
+	  System.out.println("Script Number 9: EmailMissingTopDomain"); 
+	  SignUpDriver.get(URL);
+	  SignUpjar.SignUpPage(SignUpDriver).click();
+	  SignUpjar.FirstName(SignUpDriver).sendKeys("Andrio");
+	  SignUpjar.LastName(SignUpDriver).sendKeys("Watson");
+	  String data = "Andrio.watson@EMail";
+	  SignUpjar.Email(SignUpDriver).sendKeys(data);
+	  SignUpjar.LastName(SignUpDriver).click();
+	  
+	  if(data.matches(Regex))
+	  {
+		  System.out.println("Provided Email ID is Correct");
+		  System.out.println("");
+	  }
+	  else
+	  {
+		System.err.println(SignUpjar.EmailMessage(SignUpDriver));
+		System.out.println("");
+	  }
+	  
+  }
+  
+  @Test(priority=9)
+  public void EmailLeadingDashInDomain()
+  {
+	  System.out.println("");
+	  System.out.println("Script Number 10: EmailLeadingDashInDomain"); 
+	  SignUpDriver.get(URL);
+	  SignUpjar.SignUpPage(SignUpDriver).click();
+	  SignUpjar.FirstName(SignUpDriver).sendKeys("Andrio");
+	  SignUpjar.LastName(SignUpDriver).sendKeys("Watson");
+	  String data = "Andrio.watson@-EMail.com";
+	  SignUpjar.Email(SignUpDriver).sendKeys(data);
+	  SignUpjar.LastName(SignUpDriver).click();
+	  
+	  if(data.matches(Regex))
+	  {
+		  System.out.println("Provided Email ID is Correct");
+		  System.out.println("");
+	  }
+	  else
+	  {
+		System.err.println(SignUpjar.EmailMessage(SignUpDriver));
+		System.out.println("");
+	  } 
+  }
+  
+  @Test(priority=10)
+  public void ValidEmail()
+  {
+	  System.out.println("");
+	  System.out.println("Script Number 11: ValidEmail"); 
+	  SignUpDriver.get(URL);
+	  SignUpjar.SignUpPage(SignUpDriver).click();
+	  SignUpjar.FirstName(SignUpDriver).sendKeys("Andrio");
+	  SignUpjar.LastName(SignUpDriver).sendKeys("Watson");
+
+	  SignUpjar.Email(SignUpDriver).sendKeys(EmailValid);
+	  SignUpjar.LastName(SignUpDriver).click();
+	  
+	  if(EmailValid.matches(Regex))
+	  {
+		  System.out.println("Provided Email ID is Correct");
+		  System.out.println("");
+	  }
+	  else
+	  {
+		System.err.println(SignUpjar.EmailMessage(SignUpDriver));
+		System.out.println("");
+	  } 
+  }
+  
+  @Test(priority=11)
+  public void EmailwithOneDot()
+  {
+	  System.out.println("");
+	  System.out.println("Script Number 12: EmailwithOneDot"); 
+	  SignUpDriver.get(URL);
+	  SignUpjar.SignUpPage(SignUpDriver).click();
+	  SignUpjar.FirstName(SignUpDriver).sendKeys("Andrio");
+	  SignUpjar.LastName(SignUpDriver).sendKeys("Watson");
+	  String data = "Andrio.watson@-EMail.com";
+	  SignUpjar.Email(SignUpDriver).sendKeys(data);
+	  SignUpjar.LastName(SignUpDriver).click();
+	  
+	  if(data.matches(Regex))
+	  {
+		  System.out.println("Provided Email ID is Correct");
+		  System.out.println("");
+	  }
+	  else
+	  {
+		System.err.println(SignUpjar.EmailMessage(SignUpDriver));
+		System.out.println("");
+	  } 
+  }
+  
+  @Test(priority=12)
+  public void EmailDotInSubDomain()
+  {
+	  System.out.println("");
+	  System.out.println("Script Number 13: EmailDotInSubDomain"); 
+	  SignUpDriver.get(URL);
+	  SignUpjar.SignUpPage(SignUpDriver).click();
+	  SignUpjar.FirstName(SignUpDriver).sendKeys("Andrio");
+	  SignUpjar.LastName(SignUpDriver).sendKeys("Watson");
+	  String data = "Andrio.watson@EMail.Gmail.com";
+	  SignUpjar.Email(SignUpDriver).sendKeys(data);
+	  SignUpjar.LastName(SignUpDriver).click();
+	  
+	  if(data.matches(Regex))
+	  {
+		  System.out.println("Provided Email ID is Correct");
+		  System.out.println("");
+	  }
+	  else
+	  {
+		System.err.println(SignUpjar.EmailMessage(SignUpDriver));
+		System.out.println("");
+	  }
+  }
+  
+  @Test(priority=13)
+  public void EmailwithDigit()
+  {
+	  System.out.println("");
+	  System.out.println("Script Number 14: EmailwithDigit"); 
+	  SignUpDriver.get(URL);
+	  SignUpjar.SignUpPage(SignUpDriver).click();
+	  SignUpjar.FirstName(SignUpDriver).sendKeys("Andrio");
+	  SignUpjar.LastName(SignUpDriver).sendKeys("Watson");
+	  String data = "123645789@EMail.com";
+	  SignUpjar.Email(SignUpDriver).sendKeys(data);
+	  SignUpjar.LastName(SignUpDriver).click();
+	  
+	  if(data.matches(Regex))
+	  {
+		  System.out.println("Provided Email ID is Correct");
+		  System.out.println("");
+	  }
+	  else
+	  {
+		System.err.println(SignUpjar.EmailMessage(SignUpDriver));
+		System.out.println("");
+	  } 
+  }
+  
+  @Test(priority=14)
+  public void EmailDashContainOnDomain()
+  {
+	  System.out.println("");
+	  System.out.println("Script Number 15: EmailDashContainOnDomain"); 
+	  SignUpDriver.get(URL);
+	  SignUpjar.SignUpPage(SignUpDriver).click();
+	  SignUpjar.FirstName(SignUpDriver).sendKeys("Andrio");
+	  SignUpjar.LastName(SignUpDriver).sendKeys("Watson");
+	  String data = "AndrioWatson@EMa-il.com";
+	  SignUpjar.Email(SignUpDriver).sendKeys(data);
+	  SignUpjar.LastName(SignUpDriver).click();
+	  
+	  if(data.matches(Regex))
+	  {
+		  System.out.println("Provided Email ID is Correct");
+		  System.out.println("");
+	  }
+	  else
+	  {
+		System.err.println(SignUpjar.EmailMessage(SignUpDriver));
+		System.out.println("");
+	  } 
+  }
+  
+  @Test(priority=15)
+  public void EmailWithUnderScore()
+  {
+	  System.out.println("");
+	  System.out.println("Script Number 16: EmailWithUnderScore"); 
+	  SignUpDriver.get(URL);
+	  SignUpjar.SignUpPage(SignUpDriver).click();
+	  SignUpjar.FirstName(SignUpDriver).sendKeys("Andrio");
+	  SignUpjar.LastName(SignUpDriver).sendKeys("Watson");
+	  String data = "Andrio_Watson@EMail.com";
+	  SignUpjar.Email(SignUpDriver).sendKeys(data);
+	  SignUpjar.LastName(SignUpDriver).click();
+	  
+	  if(data.matches(Regex))
+	  {
+		  System.out.println("Provided Email ID is Correct");
+		  System.out.println("");
+	  }
+	  else
+	  {
+		System.err.println(SignUpjar.EmailMessage(SignUpDriver));
+		System.out.println("");
+	  } 
+  }
+  
+  @Test(priority=16)
+  public void EmailUsernameDash()
+  {
+	  System.out.println("");
+	  System.out.println("Script Number 17: EmailUsernameDash"); 
+	  SignUpDriver.get(URL);
+	  SignUpjar.SignUpPage(SignUpDriver).click();
+	  SignUpjar.FirstName(SignUpDriver).sendKeys("Andrio");
+	  SignUpjar.LastName(SignUpDriver).sendKeys("Watson");
+	  String data = "Andrio-Watson@EMail.com";
+	  SignUpjar.Email(SignUpDriver).sendKeys(data);
+	  SignUpjar.LastName(SignUpDriver).click();
+	  
+	  if(data.matches(Regex))
+	  {
+		  System.out.println("Provided Email ID is Correct");
+		  System.out.println("");
+	  }
+	  else
+	  {
+		System.err.println(SignUpjar.EmailMessage(SignUpDriver));
+		System.out.println("");
+	  } 
+  }
+  
+  @Test(priority=16)
+  public void EmailMultipleDash()
+  {
+	  System.out.println("");
+	  System.out.println("Script Number 18: EmailMultipleDash"); 
+	  SignUpDriver.get(URL);
+	  SignUpjar.SignUpPage(SignUpDriver).click();
+	  SignUpjar.FirstName(SignUpDriver).sendKeys("Andrio");
+	  SignUpjar.LastName(SignUpDriver).sendKeys("Watson");
+	  String data = "Andrio_Wat_son@EMail.com";
+	  SignUpjar.Email(SignUpDriver).sendKeys(data);
+	  SignUpjar.LastName(SignUpDriver).click();
+	  
+	  if(data.matches(Regex))
+	  {
+		  System.out.println("Provided Email ID is Correct");
+		  System.out.println("");
+	  }
+	  else
+	  {
+		System.err.println(SignUpjar.EmailMessage(SignUpDriver));
+		System.out.println("");
+	  } 
+  }
+  
+  @Test(priority=17)
+  public void PasswordRange()
+  {
+	  System.out.println("");
+	  System.out.println("Script Number 18: PasswordRange");  
+	  SignUpDriver.get(URL);
+	  SignUpjar.SignUpPage(SignUpDriver).click();
+	  SignUpjar.FirstName(SignUpDriver).sendKeys("Andrio");
+	  SignUpjar.LastName(SignUpDriver).sendKeys("Watson");
+	  SignUpjar.Email(SignUpDriver).sendKeys("AndrioWatson@EMail.com");
+	  String data = "123";
+	  SignUpjar.Password(SignUpDriver).sendKeys(data);
+	  SignUpjar.ConfirmPassword(SignUpDriver).click();
+	  
+	  if(data.length()>=8)
+	  {
+		 System.out.println("ValidPassword Class message: Password length is good"); 
+	  }
+	  else
+	  {
+		  System.out.println("");
+		  System.out.println("InvalidPassword class Message is:");
+		  String datad= SignUpjar.PasswordMessage(SignUpDriver);
+		  System.err.println(datad);
+	  } 		
+  }
+  
+  @Test(priority=18)
+  public void ValidPassword()
+  {
+	  System.out.println("");
+	  System.out.println("Script Number 19: ValidPassword");  
+	  SignUpDriver.get(URL);
+	  SignUpjar.SignUpPage(SignUpDriver).click();
+	  SignUpjar.FirstName(SignUpDriver).sendKeys("Andrio");
+	  SignUpjar.LastName(SignUpDriver).sendKeys("Watson");
+	  SignUpjar.Email(SignUpDriver).sendKeys("AndrioWatson@EMail.com");
+	  String data = "12345678";
+	  SignUpjar.Password(SignUpDriver).sendKeys(data);
+	  SignUpjar.ConfirmPassword(SignUpDriver).click();
+	  
+	  if(data.length()>=8)
+	  {
+		 System.out.println("");
+		 System.out.println("ValidPassword Class Message: Password length is good"); 
+	  }
+	  else
+	  {
+		  String datad= SignUpjar.PasswordMessage(SignUpDriver);
+		  System.out.println("");
+		  System.out.println("InvalidPassword class Message is:");
+		  System.err.println(datad);
+	  }	
+  }
+  
+  @Test(priority=19)
+  public void InvalidConfirmPassword()
+  {
+	
+	  System.out.println("");
+	  System.out.println("Script Number 20: InvalidConfirmPassword");
+	  SignUpDriver.get(URL);
+	  SignUpjar.SignUpPage(SignUpDriver).click();
+	  SignUpjar.FirstName(SignUpDriver).sendKeys("Andrio");
+	  SignUpjar.LastName(SignUpDriver).sendKeys("Watson");
+	  SignUpjar.Email(SignUpDriver).sendKeys(ValidEMail);
+	  String data = "12345678";
+	  SignUpjar.Password(SignUpDriver).sendKeys(data);
+	  SignUpjar.ConfirmPassword(SignUpDriver).sendKeys(data);
+	  SignUpjar.SignUPSubmit(SignUpDriver).click();
+  }
+
+  @Test(priority=20)
+  public void PasswordLengthInvalidwithConfirmPasswordValid()
+  {
+	  System.out.println("");
+	  System.out.println("Script Number 21: PasswordLengthInvalidwithConfirmPasswordValid");
+	  SignUpDriver.get(URL);
+	  SignUpjar.SignUpPage(SignUpDriver).click();
+	  SignUpjar.FirstName(SignUpDriver).sendKeys("Andrio");
+	  SignUpjar.LastName(SignUpDriver).sendKeys("Watson");
+	  SignUpjar.Email(SignUpDriver).sendKeys(ValidEMail);
+	  String Invalid = "123";	
+	  SignUpjar.Password(SignUpDriver).sendKeys(Invalid);
+	  SignUpjar.ConfirmPassword(SignUpDriver).click();
+	  
+	  if(Invalid.length()>=8)
+	  {
+		  System.out.println("Password Field data: "+Invalid);
+		  System.out.println("Enter Credential is correct");
+	  }
+	  else
+	  {
+		  System.out.println("");
+		  System.out.println("Password Field data: "+Invalid);
+		  String print = SignUpjar.PasswordMessage(SignUpDriver);
+		  System.out.println(print);
+	  }
+	  
+	  String Valid = "12345678";
+	  SignUpjar.ConfirmPassword(SignUpDriver).sendKeys(Valid);
+	  SignUpjar.SignUPSubmit(SignUpDriver).click();
+	  
+	  if(Valid.contentEquals(Invalid))
+	  {
+		  System.out.println("");
+		  System.out.println("ConfirmPassword Field: "+Valid);
+		  System.out.println("Password is matched");
+	  }
+	  else
+	  {
+		  System.out.println("");
+		  System.out.println("ConfirmPassword Field: "+Valid);
+		  String NotMatched = SignUpjar.PasswordMessage1(SignUpDriver);
+		  System.out.println(NotMatched);
+	  }
+	  SignUpjar.SignUPSubmit(SignUpDriver).click();
+  }
+  
+  @Test(priority=21)
+  public void PasswordLengthValidwithConfirmPasswordLengthInvalid()
+  {
+	  System.out.println("");
+	  System.out.println("Script Number 22: PasswordLengthValidwithConfirmPasswordLengthInvalid");
+	  SignUpDriver.get(URL);
+	  SignUpjar.SignUpPage(SignUpDriver).click();
+	  SignUpjar.FirstName(SignUpDriver).sendKeys("Andrio");
+	  SignUpjar.LastName(SignUpDriver).sendKeys("Watson");
+	  SignUpjar.Email(SignUpDriver).sendKeys(ValidEMail);
+	  String Invalid = "12345678";	
+	  SignUpjar.Password(SignUpDriver).sendKeys(Invalid);
+	  SignUpjar.ConfirmPassword(SignUpDriver).click();
+	  if(Invalid.length()>=8)
+	  {
+		  System.out.println("Password Field data: "+Invalid);
+		  System.out.println("Enter Credential is correct");
+	  }
+	  else
+	  {
+		  System.out.println("");
+		  System.out.println("Password Field data: "+Invalid);
+		  String print = SignUpjar.PasswordMessage(SignUpDriver);
+		  System.out.println(print);
+	  }
+	  
+	  String Valid = "123";
+	  SignUpjar.ConfirmPassword(SignUpDriver).sendKeys(Valid);
+	  SignUpjar.SignUPSubmit(SignUpDriver).click();
+	  if(Valid.contentEquals(Invalid))
+	  {
+		  System.out.println("");
+		  System.out.println("ConfirmPassword Field data: "+Valid);
+		  System.out.println("Password is matched");
+	  }
+	  else
+	  {
+		  System.out.println("");
+		  System.out.println("ConfirmPassword Field data: "+Valid);
+		  String NotMatched = SignUpjar.PasswordMessage(SignUpDriver);
+		  System.out.println(NotMatched);
+	  }
+	  SignUpjar.SignUPSubmit(SignUpDriver).click();
+  }
+  
+  @Test(priority=21)
+  public void BothValidbutnotSame()
+  {
+	  System.out.println("");
+	  System.out.println("Script Number 22: BothValidbutnotSame");
+	  SignUpDriver.get(URL);
+	  SignUpjar.SignUpPage(SignUpDriver).click();
+	  SignUpjar.FirstName(SignUpDriver).sendKeys("Andrio");
+	  SignUpjar.LastName(SignUpDriver).sendKeys("Watson");
+	  SignUpjar.Email(SignUpDriver).sendKeys(ValidEMail);
+	  String Invalid = "12345678";	
+	  SignUpjar.Password(SignUpDriver).sendKeys(Invalid);
+	  SignUpjar.ConfirmPassword(SignUpDriver).click();
+	  if(Invalid.length()>=8)
+	  {
+		  System.out.println("Password Field data: "+Invalid);
+		  System.out.println("Enter Credential is correct");
+	  }
+	  else
+	  {
+		  System.out.println("");
+		  System.out.println("Password Field data: "+Invalid);
+		  String print = SignUpjar.PasswordMessage(SignUpDriver);
+		  System.out.println(print);
+	  }
+	  
+	  String Valid = "123";
+	  SignUpjar.ConfirmPassword(SignUpDriver).sendKeys(Valid);
+	  SignUpjar.SignUPSubmit(SignUpDriver).click();
+	  if(Valid.contentEquals(Invalid))
+	  {
+		  System.out.println("");
+		  System.out.println("ConfirmPassword Field data: "+Valid);
+		  System.out.println("Password is matched");
+	  }
+	  else
+	  {
+		  System.out.println("");
+		  System.out.println("ConfirmPassword Field data: "+Valid);
+		  String NotMatched = SignUpjar.PasswordMessage(SignUpDriver);
+		  System.out.println(NotMatched);
+	  }
+	  SignUpjar.SignUPSubmit(SignUpDriver).click();
+  }
+  
+  @Test(priority=22)
+  public void PasswordConfirmPasswordValid()
+  {
+	  System.out.println("");
+	  System.out.println("Script Number 23: PasswordConfirmPasswordValid");
+	  SignUpDriver.get(URL);
+	  SignUpjar.SignUpPage(SignUpDriver).click();
+	  SignUpjar.FirstName(SignUpDriver).sendKeys("Andrio");
+	  SignUpjar.LastName(SignUpDriver).sendKeys("Watson");
+	  SignUpjar.Email(SignUpDriver).sendKeys(ValidEMail);
+	  String Invalid = "12345678";	
+	  SignUpjar.Password(SignUpDriver).sendKeys(Invalid);
+	  SignUpjar.ConfirmPassword(SignUpDriver).click();
+	  if(Invalid.length()>=8)
+	  {
+		  System.out.println("Password Field data: "+Invalid);
+		  System.out.println("Enter Credential is correct");
+	  }
+	  else
+	  {
+		  System.out.println("");
+		  System.out.println("Password Field data: "+Invalid);
+		  String print = SignUpjar.PasswordMessage(SignUpDriver);
+		  System.out.println(print);
+	  }
+	  
+	  String Valid = "12345678";
+	  SignUpjar.ConfirmPassword(SignUpDriver).sendKeys(Valid);
+	  SignUpjar.SignUPSubmit(SignUpDriver).click();
+	  if(Valid.contentEquals(Invalid))
+	  {
+		  System.out.println("");
+		  System.out.println("ConfirmPassword Field data: "+Valid);
+		  System.out.println("Password is matched");
+	  }
+	  else
+	  {
+		  System.out.println("");
+		  System.out.println("ConfirmPassword Field data: "+Valid);
+		  String NotMatched = SignUpjar.PasswordMessage(SignUpDriver);
+		  System.out.println(NotMatched);
+	  }
+	  
+	  SignUpjar.SignUPSubmit(SignUpDriver).click();
+  }
+  
+  @AfterTest
+  public void CloseBrowser() throws Exception
+  {
+	  Thread.sleep(5000);
+	  SignUpDriver.close();
+  }
+}
