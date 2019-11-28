@@ -15,8 +15,8 @@ public class SignUpA
 	public static String URL = "http://63.249.226.106/apwpthemes/";
 	public static String CSSColor = "#d50000";
 	public static String Regex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-	public static String ValidEMail = "AndrioWatson@E3mailss.com";  //Password
-	public static String EmailValid = "AndrioWatson@Emailss.com";  //ValidEmail Class
+	public static String ValidEMail = "";  //Password
+	public static String EmailValid = "";  //ValidEmail Class
 	@BeforeTest
 	public void BeforeTest ()
 	{
