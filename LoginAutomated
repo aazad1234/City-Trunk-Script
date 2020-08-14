@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
 public class LoginA
 {
 	public static WebDriver LoginDriver;
-	public static String URL = " http://63.249.226.106/apwpthemes";
+	public static String URL = " URL";
 	public static String Email= "Andriowats23on@gmail.com";
 	public static String EmailNotVerified = "Andriowatson1@gmail.com";
 	public static String Password1 = "";
